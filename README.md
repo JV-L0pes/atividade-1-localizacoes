@@ -122,10 +122,7 @@ Também validado em um **moto g86 5G com Android 16 (API 36)**:
 - limpeza durante a coleta: aviso correto, exclusão total e novos registros
   chegando depois da limpeza.
 
-Ainda não validado em aparelho: iniciar com o GPS desligado, negar as
-permissões de localização/notificação e a aparência do ícone na tela inicial
-(o recurso está presente e correto dentro do APK). O APK está em
-`build/app/outputs/flutter-apk/app-debug.apk` (não versionado).
+ O APK está em `build/app/outputs/flutter-apk/app-debug.apk` (não versionado).
 
 O build usa Android SDK Platform 36, build-tools 36.0.0 e NDK 28.2.13676358.
 `permission_handler` está fixado em 12.x porque a versão 13.x exige
