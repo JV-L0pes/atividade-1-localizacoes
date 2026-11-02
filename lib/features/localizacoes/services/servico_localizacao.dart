@@ -43,6 +43,12 @@ class ServicoLocalizacao {
             notificationTitle: 'Coleta de localizações ativa',
             notificationText:
                 'Suas posições estão sendo salvas neste aparelho.',
+            notificationChannelName: 'Coleta de localizações',
+            notificationIcon: AndroidResource(
+              name: 'ic_notificacao_localizacao',
+              defType: 'drawable',
+            ),
+            setOngoing: true,
             enableWakeLock: true,
           ),
         ),
