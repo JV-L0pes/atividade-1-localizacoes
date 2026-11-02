@@ -16,7 +16,8 @@ dependencies:
   latlong2: ^0.10.1
   path: ^1.9.1
   path_provider: ^2.1.6
-  permission_handler: ^13.0.2
+  # 13.x exige compileSdk 37, que o AGP resolve como android-37 inexistente.
+  permission_handler: ^12.0.3
   sqflite: ^2.4.5
   url_launcher: ^6.3.3
 

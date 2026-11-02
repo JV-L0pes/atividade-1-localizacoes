@@ -102,6 +102,17 @@ servidores de tiles.
   apresentação quando não há histórico ou acesso às ruas.
 - Conferir o ícone na tela inicial e na lista de aplicativos após instalar.
 
-**Validação pendente neste ambiente:** build e execução Android, coleta real
-minimizada, notificação e ícone instalado. O Android SDK local está incompleto
-e não havia aparelho ou emulador Android conectado durante o desenvolvimento.
+**Verificado neste ambiente:** APK debug compilado com sucesso e inspecionado.
+O pacote contém o serviço de localização em primeiro plano, as permissões
+necessárias, o ícone próprio (convencional e adaptativo), o ícone da
+notificação e o backup desabilitado. `minSdk` 24, `targetSdk` 36.
+
+**Validação pendente neste ambiente:** execução em aparelho Android — coleta
+real minimizada, notificação e ícone instalado. Não havia aparelho ou emulador
+Android conectado durante o desenvolvimento. O APK verificado está em
+`build/app/outputs/flutter-apk/app-debug.apk` (não versionado).
+
+O build usa Android SDK Platform 36, build-tools 36.0.0 e NDK 28.2.13676358.
+`permission_handler` está fixado em 12.x porque a versão 13.x exige
+`compileSdk` 37, que a plataforma publicada como `android-37.0` não resolve no
+AGP 9.1.
