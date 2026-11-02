@@ -6,6 +6,7 @@ import '../../data/repositories/repositorio_localizacoes.dart';
 import '../../models/localizacao.dart';
 import '../../services/servico_localizacao.dart';
 import 'tela_localizacoes.dart';
+import 'tela_mapa.dart';
 
 class TelaColeta extends StatefulWidget {
   const TelaColeta({
@@ -174,6 +175,15 @@ class _TelaColetaState extends State<TelaColeta> {
               ),
             ),
             child: const Text('Consultar histórico'),
+          ),
+          OutlinedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (context) => TelaMapa(repositorio: widget.repositorio),
+              ),
+            ),
+            child: const Text('Ver mapa'),
           ),
           TextButton(
             onPressed: _alterando ? null : _abrirConfiguracoes,

@@ -185,4 +185,20 @@ void main() {
     await concluir(tester);
     expect(servico.controlador.hasListener, isFalse);
   });
+
+  testWidgets('continua salvando com a tela de mapa aberta', (tester) async {
+    await montar(tester);
+    await tester.tap(find.text('Iniciar coleta'));
+    await tester.pump();
+    await tester.tap(find.text('Ver mapa'));
+    await tester.pumpAndSettle();
+    servico.controlador.add(posicao());
+    await tester.pump();
+    expect(repositorio.registros.length, 1);
+    expect(servico.controlador.hasListener, isTrue);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Parar coleta'));
+    await concluir(tester);
+  });
 }
