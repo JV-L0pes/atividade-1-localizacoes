@@ -49,10 +49,7 @@ class _TelaColetaState extends State<TelaColeta> {
       _assinatura = widget.servico.posicoes().listen(
         (localizacao) {
           _gravacoes = _gravacoes
-              .then((_) async {
-                if (_erro != null) return;
-                await widget.repositorio.inserir(localizacao);
-              })
+              .then((_) => widget.repositorio.inserir(localizacao))
               .catchError((Object erro) {
                 _falhar(
                   'Não foi possível salvar a posição. Coleta interrompida: $erro',

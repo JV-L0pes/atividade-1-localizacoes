@@ -117,6 +117,43 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  for (final encerramento in [false, true]) {
+    testWidgets(
+      'preserva posições enfileiradas quando o stream ${encerramento ? 'termina' : 'falha'}',
+      (tester) async {
+        final primeira = Completer<void>();
+        repositorio.aoInserir = (localizacao) async {
+          if (localizacao.id == 1) await primeira.future;
+        };
+        await montar(tester);
+        await tester.tap(find.text('Iniciar coleta'));
+        await tester.pump();
+        for (var i = 1; i <= 3; i++) {
+          servico.controlador.add(posicao(i));
+        }
+        await tester.pump();
+        if (encerramento) {
+          unawaited(servico.controlador.close());
+        } else {
+          servico.controlador.addError(StateError('origem indisponível'));
+        }
+        await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+        await tester.pump();
+        primeira.complete();
+        await concluir(tester);
+        expect(repositorio.registros.map((l) => l.id), [3, 2, 1]);
+        expect(
+          find.textContaining(
+            encerramento ? 'encerrado' : 'Falha de localização',
+          ),
+          findsOneWidget,
+        );
+        expect(servico.controlador.hasListener, isFalse);
+        expect(tester.takeException(), isNull);
+      },
+    );
+  }
+
   testWidgets('trata erro e encerramento do stream', (tester) async {
     await montar(tester);
     await tester.tap(find.text('Iniciar coleta'));
