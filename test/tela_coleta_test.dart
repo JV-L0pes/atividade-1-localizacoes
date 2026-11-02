@@ -31,6 +31,20 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  testWidgets('inicia após o diálogo de permissão deixar o app inactive', (
+    tester,
+  ) async {
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    addTearDown(() {
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    });
+    await montar(tester);
+    await tester.tap(find.text('Iniciar coleta'));
+    await tester.pump();
+    expect(servico.assinaturas, 1);
+    expect(find.textContaining('Volte ao aplicativo'), findsNothing);
+  });
+
   testWidgets('inicia só uma assinatura e habilita parar', (tester) async {
     await montar(tester);
     await tester.tap(find.text('Iniciar coleta'));

@@ -40,10 +40,6 @@ class _TelaColetaState extends State<TelaColeta> {
     try {
       await widget.servico.verificarPermissoes();
       if (!mounted) return;
-      final ciclo = WidgetsBinding.instance.lifecycleState;
-      if (ciclo != null && ciclo != AppLifecycleState.resumed) {
-        throw Exception('Volte ao aplicativo e toque em Iniciar coleta.');
-      }
       _erro = null;
       _gravacoes = Future.value();
       _assinatura = widget.servico.posicoes().listen(

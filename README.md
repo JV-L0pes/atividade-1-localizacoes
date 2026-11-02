@@ -102,14 +102,29 @@ servidores de tiles.
   apresentação quando não há histórico ou acesso às ruas.
 - Conferir o ícone na tela inicial e na lista de aplicativos após instalar.
 
-**Verificado neste ambiente:** APK debug compilado com sucesso e inspecionado.
-O pacote contém o serviço de localização em primeiro plano, as permissões
-necessárias, o ícone próprio (convencional e adaptativo), o ícone da
-notificação e o backup desabilitado. `minSdk` 24, `targetSdk` 36.
+**Verificado neste ambiente:** APK debug compilado e inspecionado. O pacote
+contém o serviço de localização em primeiro plano, as permissões necessárias,
+o ícone próprio (convencional e adaptativo), o ícone da notificação e o backup
+desabilitado. `minSdk` 24, `targetSdk` 36.
 
-**Validação pendente neste ambiente:** execução em aparelho Android — coleta
-real minimizada, notificação e ícone instalado. Não havia aparelho ou emulador
-Android conectado durante o desenvolvimento. O APK verificado está em
+Também validado em um **moto g86 5G com Android 16 (API 36)**:
+
+- concessão de localização e notificações, com notificação persistente
+  “Coleta de localizações ativa”;
+- gravação em intervalos próximos de 20 s e continuidade com histórico/mapa
+  abertos e com o app minimizado por 45 s;
+- parada sem novas gravações após 25 s e remoção da notificação;
+- persistência dos registros após forçar a parada e reabrir o app;
+- histórico com horário local, seis casas decimais, precisão com uma casa e
+  atualização da lista;
+- mapa com todos os marcadores, destaque do mais recente, detalhe ao tocar e
+  atribuição do OpenStreetMap visível;
+- limpeza durante a coleta: aviso correto, exclusão total e novos registros
+  chegando depois da limpeza.
+
+Ainda não validado em aparelho: iniciar com o GPS desligado, negar as
+permissões de localização/notificação e a aparência do ícone na tela inicial
+(o recurso está presente e correto dentro do APK). O APK está em
 `build/app/outputs/flutter-apk/app-debug.apk` (não versionado).
 
 O build usa Android SDK Platform 36, build-tools 36.0.0 e NDK 28.2.13676358.
