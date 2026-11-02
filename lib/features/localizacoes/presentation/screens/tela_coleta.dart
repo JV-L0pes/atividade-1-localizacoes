@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../data/repositories/repositorio_localizacoes.dart';
 import '../../models/localizacao.dart';
 import '../../services/servico_localizacao.dart';
+import 'tela_localizacoes.dart';
 
 class TelaColeta extends StatefulWidget {
   const TelaColeta({
@@ -148,6 +149,11 @@ class _TelaColetaState extends State<TelaColeta> {
             'A coleta continua ao minimizar o aplicativo.',
           ),
           const SizedBox(height: 24),
+          if (_mensagem != null)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: Semantics(liveRegion: true, child: Text(_mensagem!)),
+            ),
           FilledButton(
             onPressed: _ativa || _alterando ? null : _iniciar,
             child: const Text('Iniciar coleta'),
@@ -157,16 +163,23 @@ class _TelaColetaState extends State<TelaColeta> {
             child: const Text('Parar coleta'),
           ),
           const SizedBox(height: 12),
+          OutlinedButton(
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (context) => TelaLocalizacoes(
+                  repositorio: widget.repositorio,
+                  coletaAtiva: () => _ativa,
+                ),
+              ),
+            ),
+            child: const Text('Consultar histórico'),
+          ),
           TextButton(
             onPressed: _alterando ? null : _abrirConfiguracoes,
             child: const Text('Configurações de permissão'),
           ),
           if (_alterando) const LinearProgressIndicator(),
-          if (_mensagem != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 16),
-              child: Text(_mensagem!, semanticsLabel: _mensagem),
-            ),
         ],
       ),
     ),

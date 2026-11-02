@@ -163,4 +163,26 @@ void main() {
     await tester.pump();
     expect(servico.configuracoesAbertas, isTrue);
   });
+
+  testWidgets('continua salvando ao navegar e atualizar o histórico', (
+    tester,
+  ) async {
+    await montar(tester);
+    await tester.tap(find.text('Iniciar coleta'));
+    await tester.pump();
+    await tester.tap(find.text('Consultar histórico'));
+    await tester.pumpAndSettle();
+    servico.controlador.add(posicao());
+    await tester.pump();
+    expect(repositorio.registros.length, 1);
+    await tester.tap(find.byTooltip('Atualizar'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('1.234568'), findsOneWidget);
+    expect(servico.controlador.hasListener, isTrue);
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Parar coleta'));
+    await concluir(tester);
+    expect(servico.controlador.hasListener, isFalse);
+  });
 }
